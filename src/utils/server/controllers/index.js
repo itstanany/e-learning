@@ -9,3 +9,5 @@ export * from './resController';
 export * from './userdocController';
 export * from './allAuthorsController';
 export * from './userCoursesController';
+export * from './addCourseController';
+export * from './editCourseController';
