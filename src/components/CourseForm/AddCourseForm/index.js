@@ -3,14 +3,14 @@
  * presentational component
  */
 
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Avatar, Grid, Typography } from '@material-ui/core';
 import { AddToQueueOutlined } from '@material-ui/icons';
-import { lecturePlaceholder } from '../../../utils/client';
+import { lecturePlaceholder, submitCourse } from '../../../utils/client';
 import { BasicCourseForm } from '../BasicCourseForm';
 import { useUser } from '../../../customHooks';
 
-const lectures = [{
+const initialLectures = [{
   ...lecturePlaceholder,
 }];
 
@@ -24,6 +24,13 @@ const AddCourseForm = () => {
     price: '',
     author: user?.name,
   }), [user]);
+
+  const submitHandler = useCallback(({ lectures, courseInfo, thumbnail }) => (submitCourse({
+    lectures,
+    courseInfo,
+    thumbnail,
+    url: 'admin/courses/add',
+  })), []);
 
   return (
     <>
@@ -45,7 +52,8 @@ const AddCourseForm = () => {
       </Grid>
       <BasicCourseForm
         initialCourse={course}
-        initialLectures={lectures}
+        initialLectures={initialLectures}
+        submitCourse={submitHandler}
       />
     </>
   );
