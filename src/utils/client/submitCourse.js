@@ -6,7 +6,12 @@ const SUBMIT_STATE = {
   ERROR: 'ERROR',
 };
 
-const submitCourse = async ({ lectures, courseInfo, thumbnail = null }) => {
+const submitCourse = async ({
+  lectures,
+  courseInfo,
+  thumbnail = null,
+  url,
+}) => {
   let state;
   let error;
   try {
@@ -14,8 +19,8 @@ const submitCourse = async ({ lectures, courseInfo, thumbnail = null }) => {
     formData.set('courseInfo', JSON.stringify(courseInfo));
     formData.append('lectures', JSON.stringify(lectures));
     formData.append('thumbnail', thumbnail);
-    const result = await apiPost({ url: 'admin/courses/submit', body: formData });
-    if (result?.added === true) {
+    const result = await apiPost({ url/* : 'admin/courses/submit' */, body: formData });
+    if (result?.submitted === true) {
       state = SUBMIT_STATE.ADDED;
     } else if (result?.added === false) {
       state = SUBMIT_STATE.FAILED;
