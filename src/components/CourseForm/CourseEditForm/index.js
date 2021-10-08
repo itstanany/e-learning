@@ -3,11 +3,11 @@
  * presentational component
  */
 import {
-  memo, useEffect, useMemo, useState,
+  memo, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { Avatar, Grid, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import { fetchCourse, getLectures } from '../../../utils/client';
+import { fetchCourse, getLectures, submitCourse } from '../../../utils/client';
 import { FullPageLoader } from '../../Loader';
 import { ErrorPage } from '../../ErrorPage';
 import { BasicCourseForm } from '../BasicCourseForm';
@@ -47,6 +47,17 @@ function CourseEditForm({ cId }) {
   const [lectures, setLectures] = useState(null);
   // data fetching state
   const [state, setState] = useState(STATE_CONSTANTS.LOADING);
+
+  const submitHandler = useCallback(({
+    lectures: lecturesArg,
+    courseInfo,
+    thumbnail,
+  }) => (submitCourse({
+    lectures: lecturesArg,
+    courseInfo,
+    thumbnail,
+    url: 'admin/courses/edit',
+  })), []);
 
   useEffect(() => {
     setState(STATE_CONSTANTS.LOADING);
@@ -95,6 +106,7 @@ function CourseEditForm({ cId }) {
             <BasicCourseForm
               initialCourse={course}
               initialLectures={lectures}
+              submitCourse={submitHandler}
             />
           </>
         );
