@@ -1,6 +1,6 @@
 /**
  * Basic Course Form
- * It render a course data with the ability to change it
+ * It renders a course data with the ability to change it
  * Container component
  */
 
@@ -24,7 +24,7 @@ import {
 import { Alert } from '../../Alert';
 import {
   canUseDOM, getAllAuthors, lecturePlaceholder, resources,
-  submitCourse,
+  // submitCourse,
   SUBMIT_STATE,
   validateFormRequired,
 } from '../../../utils/client';
@@ -72,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 function BasicCourseForm({
   initialCourse,
   initialLectures,
+  submitCourse,
 }) {
   // classes object of class names
   const classes = useStyles();
