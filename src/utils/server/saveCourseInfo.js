@@ -8,7 +8,7 @@ import { adminFirestore } from '../../firebase/admin';
  * @param {object} paramsObj.courseInfo - course info object
  * @param {array} paramsObj.lectures - array of lecture objects
  * @returns {object} returnObj - return object
- * @returns {boolean} returnsObj.added
+ * @returns {boolean} returnsObj.saved - boolean of saving status
  * @returns {object} returnObj.error - error object in case of errors
  */
 const saveCourseInfo = async ({ courseInfo, lectures }) => {
@@ -53,10 +53,10 @@ const saveCourseInfo = async ({ courseInfo, lectures }) => {
       }
     });
 
-    return { added: true, id: courseId };
+    return { saved: true, id: courseId };
   } catch (error) {
     return {
-      added: false,
+      saved: false,
       error,
     };
   }
