@@ -53,7 +53,7 @@ const saveCourseInfo = async ({ courseInfo, lectures }) => {
       }
     });
 
-    return { saved: true, id: courseId };
+    return { saved: true, courseId };
   } catch (error) {
     return {
       saved: false,
