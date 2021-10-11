@@ -66,7 +66,6 @@ function Footer() {
                   <a
                     href={lnk.path}
                     className={classes.block}
-                    target="_blank"
                     rel="noreferrer"
                   >
                     {
