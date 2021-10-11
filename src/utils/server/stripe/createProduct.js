@@ -1,9 +1,12 @@
+import { getStripe } from './getStripe';
+
+const stripe = getStripe();
 const createProduct = async ({
   name,
   id,
   images = [],
   active = true,
-  description = '',
+  description,
 } = {}) => {
   const product = {
     name,
@@ -13,7 +16,6 @@ const createProduct = async ({
     description,
   };
   const result = await stripe.products.create(product);
-  console.log({ result });
   return {
     product: result,
   };
