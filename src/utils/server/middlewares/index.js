@@ -5,3 +5,4 @@ export * from './requireSubscription';
 export * from './parseCourseSubmission';
 export * from './requireAdminRole';
 export * from './requireAdminEditorRole';
+export * from './requirePayment';
