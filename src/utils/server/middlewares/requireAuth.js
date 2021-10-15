@@ -17,7 +17,7 @@ const checkAuth = (req, res, next) => {
     req.body = {
       ...req.body,
       // rename user to userCookie,
-      //  ... so avoid the possibility of "user" field in body ibject send by the client
+      //  ... so avoid the possibility of "user" field in body object send by the client
       userCookie,
     };
     return next();
