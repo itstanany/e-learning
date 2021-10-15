@@ -11,3 +11,4 @@ export * from './allAuthorsController';
 export * from './userCoursesController';
 export * from './addCourseController';
 export * from './editCourseController';
+export * from './subscribeController';
