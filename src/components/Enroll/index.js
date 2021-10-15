@@ -1,48 +1,26 @@
-import { useCallback } from 'react';
-import Head from 'next/head';
-import { Button } from '@material-ui/core';
-import { apiPostJson } from '../../utils/client';
-import { getStripe } from '../../utils/client/stripe';
+/**
+ * Enroll page for courses
+ */
+import { useEffect } from 'react';
+import { stripeSession } from '../../utils/client/stripe';
+import { FullPageLoader } from '../Loader';
 
-function Enroll() {
-  const redirectToCheckout = useCallback(
-    async (e) => {
-      e.stopPropagation();
-      const { id } = await apiPostJson({
-        url: 'stripe/checkoutSession',
-        body: {
-          items: [{
-            price: 'price_1Jhf4jALkn9vhIlFaPTlqVSF',
-            quantity: 3,
-          }],
-        },
-      });
-      console.log({ id });
-      const stripe = await getStripe();
-      await stripe.redirectToCheckout({ sessionId: id });
-    },
-    [],
-  );
+function Enroll({
+  course,
+  cId,
+  cSlug,
+}) {
+  useEffect(() => (
+    stripeSession({
+      items: [{
+        price: course?.priceId,
+        quantity: 1,
+      }],
+      cId,
+      cSlug,
+    })), [cId, cSlug, course?.priceId]);
   return (
-    <>
-      <Head>
-        <title>
-          Enroll
-        </title>
-      </Head>
-      <div>
-        Enroll page placeholder.
-        <h1>
-          Coming Soon, Stay tuned!
-        </h1>
-        <Button
-          onClick={redirectToCheckout}
-        >
-          Enroll
-        </Button>
-      </div>
-    </>
-
+    <FullPageLoader />
   );
 }
 
