@@ -14,3 +14,4 @@ export * from './getResources';
 export * from './isAuth';
 export * from './getCookies';
 export * from './addProductAndPriceId';
+export * from './subscribeUserToCourse';
