@@ -10,7 +10,43 @@ const runtimeCaching = [
      * Background sync for course submission requests
      * some changes to update sw
      */
-    urlPattern: '/api/admin/courses/submit',
+    urlPattern: '/api/admin/courses/add',
+    handler: 'NetworkFirst',
+    method: 'POST',
+    options: {
+      // cacheName: 'submit-course-cache',
+      backgroundSync: {
+        name: 'course-submit',
+        options: {
+          maxRetentionTime: 31 * 24 * 60 * 60, // month
+        },
+      },
+    },
+  },
+  {
+    /**
+     * Background sync for course submission requests
+     * some changes to update sw
+     */
+    urlPattern: '/api/admin/courses/edit',
+    handler: 'NetworkFirst',
+    method: 'POST',
+    options: {
+      // cacheName: 'submit-course-cache',
+      backgroundSync: {
+        name: 'course-submit',
+        options: {
+          maxRetentionTime: 31 * 24 * 60 * 60, // month
+        },
+      },
+    },
+  },
+  {
+    /**
+     * Background sync for course submission requests
+     * some changes to update sw
+     */
+    urlPattern: '/api/admin/courses/delete',
     handler: 'NetworkFirst',
     method: 'POST',
     options: {
@@ -107,6 +143,22 @@ const runtimeCaching = [
         maxEntries: 32,
         maxAgeSeconds: 24 * 60 * 60, // 24 hours
       },
+    },
+  },
+  // user page
+  {
+    urlPattern: /\/_next\/data\/.+\/user\.json$/i,
+    handler: 'NetworkFirst',
+    options: {
+      cacheName: 'auth-page',
+    },
+  },
+  // authentication page
+  {
+    urlPattern: /\/_next\/data\/.+\/auth\.json$/i,
+    handler: 'NetworkFirst',
+    options: {
+      cacheName: 'user-page',
     },
   },
   // js files
