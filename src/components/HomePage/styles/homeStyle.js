@@ -31,8 +31,31 @@ const homeStyle = {
     color: '#F8E',
     zIndex: '500',
     fontWeight: '700',
-    fontSize: '2em',
+    fontSize: '3em',
     width: '90vw',
+    // gradient text color
+    backgroundImage: 'linear-gradient(33deg, #3949cf, #890980, #ffffff)',
+    backgroundColor: '#F8E',
+
+    backgroundSize: '100%',
+    backgroundRepeat: 'repeat',
+
+    '-webkit-background-clip': 'text',
+    '-webkit-text-fill-color': 'transparent',
+    '-moz-background-clip': 'text',
+    '-moz-text-fill-color': 'transparent',
+  },
+  gradientText: {
+    backgroundImage: 'linear-gradient(45deg, #f3ec78, #af4261)',
+    backgroundColor: '#F8E',
+
+    backgroundSize: '100%',
+    backgroundRepeat: 'repeat',
+
+    '-webkit-background-clip': 'text',
+    'webkit-text-fill-color': 'transparent',
+    '-moz-background-clip': 'text',
+    '-moz-text-fill-color': 'transparent',
   },
 };
 
