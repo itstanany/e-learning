@@ -18,10 +18,9 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 // components
 import {
-  CircularProgress, Snackbar, Container, Grid,
+  CircularProgress, Container, Grid,
   Button,
 } from '@material-ui/core';
-import { Alert } from '../../Alert';
 import {
   canUseDOM, getAllAuthors, lecturePlaceholder, resources,
   // submitCourse,
@@ -30,7 +29,9 @@ import {
 } from '../../../utils/client';
 import { LecturesForm } from '../LecturesForm';
 import { CourseInfoForm } from '../CourseInfoForm';
-import { useUser } from '../../../customHooks';
+import {
+  useUser, useSnackbar,
+} from '../../../customHooks';
 
 const STATE_CONSTANTS = {
   IDLE: 'IDLE',
@@ -100,11 +101,12 @@ function BasicCourseForm({
   const [thumbnail, setThumbnail] = useState(null);
 
   // snackbar toast message state
-  const [snackbarState, setSnackbarState] = useState({
-    open: false,
-    message: '',
-    severity: '',
-  });
+  const {
+    showError,
+    showSuccess,
+    showWarning,
+    snackbar,
+  } = useSnackbar();
 
   // course info object, see prop-types for object shape
   const [courseInfo, setCourseInfo] = useState(initialCourse);
@@ -238,14 +240,7 @@ function BasicCourseForm({
       _state = STATE_CONSTANTS.ERROR;
     }
     return setSubmitState(_state);
-  }, [courseInfo, lectures, thumbnail]);
-
-  const handlerSnackbarClose = useCallback(() => {
-    /**
-     * Control visibility of Snackbar toast
-     */
-    setSnackbarState((prevState) => ({ ...prevState, open: false }));
-  }, []);
+  }, [courseInfo, lectures, submitCourse, thumbnail]);
 
   const handlerDeleteThumbnail = useCallback(() => {
     /**
@@ -265,58 +260,30 @@ function BasicCourseForm({
     setCourseInfo(initialCourse);
   }, [initialCourse]);
 
-  const showToast = useCallback(({
-    msg,
-    severity,
-  }) => {
-    /**
-     * Show Toast message
-     * @param msg: string, toast message
-     * @param severity: message color variant
-     */
-    setSnackbarState(
-      {
-        open: true,
-        message: msg,
-        severity,
-      },
-    );
-  }, []);
-
   useEffect(() => {
     /**
      * Show toast message reflecting current state of course submission
      */
-    let msg;
-    let severity;
     switch (submitState) {
       case STATE_CONSTANTS.INVALID:
-        msg = 'Invalid Entries, please fill all required fields';
-        severity = 'error';
+        showError({ msg: 'Invalid Entries, please fill all required fields' });
         break;
       case STATE_CONSTANTS.ERROR:
-        msg = 'Something went wrong, please try again';
-        severity = 'error';
+        showError({ msg: 'Something went wrong, please try again' });
         break;
       case STATE_CONSTANTS.SUCCESS:
-        msg = 'Submitted Successfully, Great!';
-        severity = 'success';
+        showSuccess({ msg: 'Submitted Successfully, Great!' });
         break;
       case STATE_CONSTANTS.FAILED:
-        msg = 'Sorry, Failed to Submit, Please Try again';
-        severity = 'error';
+        showError({ msg: 'Sorry, Failed to Submit, Please Try again' });
         break;
       case STATE_CONSTANTS.OFFLINE:
-        msg = 'It seems You are offline. Don\'t worry, we saved your work and will try again when you back online';
-        severity = 'warning';
+        showWarning({ msg: 'It seems You are offline. Don\'t worry, we saved your work and will try again when you back online' });
         break;
       default:
         break;
     }
-    if (msg && severity) {
-      showToast({ msg, severity });
-    }
-  }, [submitState, showToast]);
+  }, [submitState, showError, showSuccess, showWarning]);
 
   return (
     <Container
@@ -394,20 +361,9 @@ function BasicCourseForm({
         </Grid>
       </form>
       {/* Toast message */}
-      <Snackbar
-        autoHideDuration={6000}
-        open={snackbarState.open}
-        onClose={handlerSnackbarClose}
-      >
-        <Alert
-          severity={snackbarState.severity}
-          onClose={handlerSnackbarClose}
-        >
-          {
-            snackbarState.message
-          }
-        </Alert>
-      </Snackbar>
+      {
+        snackbar
+      }
     </Container>
   );
 }
