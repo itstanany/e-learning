@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>
-          El-Doctor E-Center
+          LearningX
         </title>
       </Head>
       <Layout>
