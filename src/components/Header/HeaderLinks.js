@@ -15,6 +15,7 @@ import {
   School,
   Dashboard,
   YouTube,
+  Home,
 } from '@material-ui/icons';
 // styles object
 import { headerLinksStyle } from './style/headerLinksStyle';
@@ -39,6 +40,23 @@ const HeaderLinks = ({ handleDrawerToggle }) => {
     <List
       className={classes.list}
     >
+      {/* Home page */}
+      <ListItem
+        className={classes.listItem}
+      >
+        <Link
+          href="/"
+          passHref
+        >
+          <Button
+            className={classes.navLink}
+            onClick={handleDrawerToggle}
+          >
+            <Home className={classes.icons} />
+            Home
+          </Button>
+        </Link>
+      </ListItem>
       {/* All courses page */}
       <ListItem
         className={classes.listItem}
