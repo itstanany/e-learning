@@ -21,8 +21,8 @@ const login = async (req, res) => {
     const userCookie = jwtGenerate({ uid: result.uid, role: result.role || role });
     cookies.set('user', userCookie, userCookiesOptions);
     if (isNewUser) {
-      adminApp.auth().setCustomUserClaims(result.uid, { role });
-      createNewUserDoc({ role, ...result });
+      await adminApp.auth().setCustomUserClaims(result.uid, { role });
+      await createNewUserDoc({ role, ...result });
     }
     return res.json({ auth: true });
   } catch (error) {
