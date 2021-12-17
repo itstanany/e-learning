@@ -90,7 +90,7 @@ function CoursePlayerComponent({
                         <CastForEducationOutlined />
                       </ListItemIcon>
                       <ListItemText
-                        primary={`Lecture<${lecture.order}> ${lecture?.title}`}
+                        primary={`Lecture <${lecture.order}> ${lecture?.title}`}
                       />
                     </ListItem>
                   )
