@@ -45,3 +45,5 @@ public/sw.js.map
 public/workbox-*.js
 public/workbox-*.map.js
 public/fallback-*.js
+
+dataInfo.txt
