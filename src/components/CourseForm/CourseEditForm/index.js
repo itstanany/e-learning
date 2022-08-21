@@ -119,7 +119,7 @@ function CourseEditForm({ cId }) {
       default:
         return null;
     }
-  }, [state, course, lectures]);
+  }, [state, course, lectures, submitHandler]);
 
   return (
     renderContent
