@@ -14,7 +14,7 @@ import { AuthFailed } from './AuthFailed';
 import { AuthError } from './AuthError';
 import { AuthRedirect } from './AuthRedirect';
 import { AuthComponent } from './Auth.component';
-import { AUTH_ROUTE } from '../../utils/client/config';
+import { AUTH_ROUTE, HOME } from '../../utils/client/config';
 
 const STATE_CONSTANTS = {
   IDLE: 'IDLE',
@@ -36,7 +36,7 @@ const Auth = () => {
   const redirectAuthenticated = useCallback(() => (
     (
       router?.isReady
-      && router.push(`${router?.query?.from || AUTH_ROUTE}`)
+      && router.push(`${router?.query?.from || HOME}`)
     )
   ), [router]);
 
